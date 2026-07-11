@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <main class="page-shell fade-in">
+        <div class="topbar">
+            <a class="back-link" href="menu.html">Volver al menú</a>
+        </div>
+
+        <h2>Videos</h2>
+
+        <section class="videos-grid">
+            <article class="video-card">
+                <div class="thumb">▶</div>
+                <div class="video-content">
+                    <h3 class="video-title">Historias que nunca pude escribir</h3>
+                    <p class="video-text">Hay cosas que no pude decir con palabras.<br>Por eso decidí contártelas con mi voz.<br>Cada vez que pulses el botón descubrirás una historia diferente.</p>
+                    <a id="discover-video" class="btn video-btn" href="#">Ver una historia</a>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        const videoLinks = [
+            'https://drive.google.com/file/d/1bd0rHCTBGDFTdZkSeUXtFZORHPklhX_k/view?usp=sharing',
+            'https://drive.google.com/file/d/1yMuyFUnxGnQAS9jC7etwL-LpNYxZ-iE0/view?usp=sharing',
+            'https://drive.google.com/file/d/1y8s9Azw1Ubz8dv14SZy1lED-3WFHw1Jl/view?usp=sharing',
+            'https://drive.google.com/file/d/1tB6l46qAeDbMwgpy2SrLyWbPfUgg4GHd/view?usp=sharing',
+            'https://drive.google.com/file/d/1yGt5DYFYEgnhjP9hqN7eNtIaBBPe4Z_x/view?usp=sharing',
+            'https://drive.google.com/file/d/1KyIoBt5x1y2zk--42egR81zwKIBl8m-h/view?usp=sharing',
+            'https://drive.google.com/file/d/1UkgpvjMBwXcXMdn79_NdhZhB_QX5pUJ1/view?usp=sharing',
+            'https://drive.google.com/file/d/1EuWC3NOixFM9GHwtDAo1z43qtwEGo_Ko/view?usp=sharing',
+            'https://drive.google.com/file/d/1qm6G2TkCMqbyvzjumRA2IvBz2-pcf6FO/view?usp=sharing',
+            'https://drive.google.com/file/d/1X1PNJ5KhADO3yGtYXDJkCQb_1pvuxAzB/view?usp=sharing',
+            'https://drive.google.com/file/d/18KeBezkrCOana6fcZsai1VWUY2196SKW/view?usp=sharing',
+            'https://drive.google.com/file/d/1mrW9yPtJpJ7T4r2xtYwsbDgCb9xqiTk_/view?usp=sharing',
+            'https://drive.google.com/file/d/1NrKkXVod8tgrUIBg0c0ut8d_QVaxoFVT/view?usp=sharing',
+            'https://drive.google.com/file/d/16hPexXgSAQaScBJhulTwhYa9f_gNx_lv/view?usp=sharing',
+            'https://drive.google.com/file/d/1QqeuwMm-KmXJcK-Ia50PRRPuP_U-_hq1/view?usp=sharing',
+            'https://drive.google.com/file/d/1XZCA_6OcEVQ_buELO8RAHX75ka-uLF_4/view?usp=sharing',
+            'https://drive.google.com/file/d/1dSaYKzXA4SpOLa8tagrzrZXGgZW0xkRY/view?usp=sharing',
+            'https://drive.google.com/file/d/1XW8pv4hZ7bJb4IXu7j8ZME5ylcfUlhIn/view?usp=sharing',
+            'https://drive.google.com/file/d/1NPQWcbGojuqxa9dq32IFMSThXwDqn9-2/view?usp=sharing',
+            'https://drive.google.com/file/d/1vidcxi2UbAshcTL3VtuPmZqYQ7Y2WKAd/view?usp=sharing',
+            'https://drive.google.com/file/d/168cQ1KE2UsiTmpsxraofQoOMGHxzW0ZC/view?usp=sharing',
+            'https://drive.google.com/file/d/1oaPSuhh2VWLbmqMbwDWZ1ZiqqIv2OmRt/view?usp=sharing',
+            'https://drive.google.com/file/d/10PP5Rwuwq1Hlzl4h8sxXOgqyWfnVasQS/view?usp=sharing',
+            'https://drive.google.com/file/d/1AFw1dEZOAIJXBO4WldOr6zepCJDv5QPH/view?usp=sharing',
+            'https://drive.google.com/file/d/1A2iC00qd0smVV9pBq7wFnevmpr_yQ7r6/view?usp=sharing',
+            'https://drive.google.com/file/d/1VfXNhBPXcuP2TnlQdN3WDIjk0rmnLCNH/view?usp=sharing',
+            'https://drive.google.com/file/d/1Psn0KZR6UR21c2qhI4uOF9bbR12wyqFB/view?usp=sharing',
+            'https://drive.google.com/file/d/1JSuDyP4A950jkyLFvqR2Zm3mDgoXXLne/view?usp=sharing',
+            'https://drive.google.com/file/d/1bsXM_jeXhZu7KCmZux8v3PY7HCuamWoE/view?usp=sharing'
+        ];
+
+        let lastVideoIndex = -1;
+        const discoverVideo = document.getElementById('discover-video');
+
+        discoverVideo.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (!videoLinks.length) return;
+
+            let nextIndex = Math.floor(Math.random() * videoLinks.length);
+            if (videoLinks.length > 1) {
+                while (nextIndex === lastVideoIndex) {
+                    nextIndex = Math.floor(Math.random() * videoLinks.length);
+                }
+            }
+
+            lastVideoIndex = nextIndex;
+            window.open(videoLinks[nextIndex], '_blank');
+        });
+    </script>
+</body>
+</html>

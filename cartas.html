@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartas</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <main class="page-shell fade-in">
+        <div class="topbar">
+            <a class="back-link" href="menu.html">Volver al menú</a>
+        </div>
+
+        <section class="letter-card fade-in" aria-live="polite">
+            <div class="letter-meta">
+                <span id="letter-date">Carta 01</span>
+                <span>Diario antiguo</span>
+            </div>
+            <h2 class="letter-title" id="letter-title">Querida mía</h2>
+            <p class="letter-text" id="letter-text"></p>
+        </section>
+
+        <div class="actions">
+            <button class="btn" id="next-letter" type="button">📖 Abrir otra carta</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        const poemas = [
+    {
+        id: 1,
+        titulo: 'Comer un helado',
+        texto: `Siempre imaginé comer un helado contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel. 
+Seguro habría hecho alguna tontería para hacerte reír y después quedarme mirándote. 
+No soñaba con una historia perfecta. Soñaba con una vida real contigo.`
+    },
+    {
+        id: 2,
+        titulo: 'Desayunar juntos',
+        texto: `Siempre imaginé desayunar juntos contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel.`
+    },
+    {
+        id: 3,
+        titulo: 'Una tarde cualquiera',
+        texto: `No necesitaba París.Ni playas famosas.Me bastaba una banca cualquiera, dos cafés y una conversación contigo.Hablar de tus sueños,escuchar tus historias y reírnos de cosas que nadie más entendería.Porque cuando uno ama,los lugares dejan de importar..`
+    },
+    {
+        id: 4,
+        titulo: "La canción",
+        texto: "Siempre pensé que algún día te cantaría una canción. No porque tuviera buena voz, sino porque quería que cada palabra te recordara lo mucho que significabas para mí. Tal vez me habría equivocado en alguna nota. Pero nunca en lo que sentía por ti."
+    },
+    {
+        id: 5,
+        titulo: "Construir un hogar",
+        texto: "Soy estudiante de arquitectura. Y mientras aprendía a levantar edificios, me di cuenta de que el hogar nunca depende de las paredes. Depende de la persona. Yo soñaba con construir muchos proyectos. Pero el más bonito siempre eras tú."
+    },
+    {
+        id: 6,
+        titulo: "El hombre que quería ser",
+        texto: "No quería impresionarte. Quería convertirme en el hombre que pudiera darte tranquilidad. Que respetara tus tiempos, que cuidara tu corazón y que nunca volviera a dejar que la impulsividad hablara antes que el amor. Ese hombre todavía lo estoy construyendo."
+    },
+    {
+        id: 7,
+        titulo: "Si Dios lo permite",
+        texto: "A veces le hablo a Dios y no le pido riquezas. Solo le pido sabiduría. Porque si algún día la vida vuelve a cruzar nuestros caminos, quiero llegar distinto. Más paciente. Más fuerte. Más digno del amor que alguna vez tuviste para ofrecer."
+    },
+    {
+        id: 8,
+        titulo: "Agosto",
+        texto: "Muchos ven un mes. Yo veía una esperanza. Imaginaba contar los días, preparar cada detalle, pensar qué decir cuando por fin te tuviera enfrente. Y aunque hoy ese sueño parezca lejano, todavía hay una parte de mí que sonríe cuando recuerda todo lo que imaginó."
+    },
+    {
+        id: 9,
+        titulo: "La paciencia",
+        texto: "Hoy entendí que amar también significa esperar. No correr. No presionar. No exigir. Sino confiar en que las flores también necesitan tiempo para convertirse en el jardín que uno soñó. Ojalá hubiera aprendido eso antes."
+    },
+    {
+        id: 10,
+        titulo: "Si algún día vuelves",
+        texto: "No quiero que vuelvas porque sientas lástima. Quiero que vuelvas porque encuentres a un hombre diferente. Uno que aprendió que el amor no se demuestra con ansiedad. Sino con calma. Con respeto. Con paciencia. Y si ese día llega, no empezaré hablando de mis errores. Empezaré dándote las gracias. Porque incluso en la distancia, seguiste inspirándome a convertirme en una mejor versión de mí."
+    },
+    {
+        id: 11,
+        titulo: 'Hacer un picnic',
+        texto: `Siempre imaginé hacer un picnic contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel.`
+    },
+    {
+        id: 12,
+        titulo: 'Ver el amanecer',
+        texto: `Siempre imaginé ver el amanecer contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel.`
+    },
+    {
+        id: 13,
+        titulo: 'Bailar sin saber',
+        texto: `Siempre imaginé bailar sin saber contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel.`
+    },
+    {
+        id: 14,
+        titulo: 'Mirar las estrellas',
+        texto: `Siempre imaginé mirar las estrellas contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel.`
+    },
+    {
+        id: 15,
+        titulo: 'Viajar en bus sin destino',
+        texto: `Siempre imaginé viajar en bus sin destino contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel.`
+    },
+    {
+        id: 16,
+        titulo: 'Compartir una pizza',
+        texto: `Siempre imaginé compartir una pizza contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel.`
+    },
+    {
+        id: 17,
+        titulo: 'Ir a una librería',
+        texto: `Siempre imaginé ir a una librería contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel.`
+    },
+    {
+        id: 18,
+        titulo: 'Tomarte fotografías',
+        texto: `Siempre imaginé tomarte fotografías contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel.`
+    },
+    {
+        id: 19,
+        titulo: 'Esperarte en el aeropuerto',
+        texto: `Siempre imaginé esperarte en el aeropuerto contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel.`
+    },
+    {
+        id: 20,
+        titulo: 'Abrazarte después de un día difícil',
+        texto: `Siempre imaginé abrazarte después de un día difícil contigo, Andira. 
+Pensaba que los días más felices no serían los más costosos, sino los más simples. 
+Quería verte sonreír, escuchar tu risa y perderme un momento en tus ojos color miel.`
+    },
+    {
+        id: 21,
+        titulo: "Ver la lluvia contigo",
+        texto: "Siempre soñé que una tarde empezara a llover y, en lugar de correr, nos quedáramos mirando cómo caían las gotas. Me habría reído al verte mojarte el cabello y habría pensado que hasta la lluvia era bonita si caía sobre ti. Después buscaríamos un café caliente y guardaríamos ese día como uno de esos recuerdos que nunca se olvidan."
+    },
+    {
+        id: 22,
+        titulo: "Compartir mi casaca",
+        texto: "Si hacía frío, quería ponerte mi casaca aunque yo terminara temblando. No por hacerme el héroe, sino porque me habría gustado cuidar de ti en los detalles pequeños. Es ahí donde siempre imaginé que vive el amor."
+    },
+    {
+        id: 23,
+        titulo: "Comprar flores sin motivo",
+        texto: "No esperaba una fecha especial para llevarte flores. Quería sorprenderte un martes cualquiera y verte preguntarme por qué. Yo solo habría respondido: \"Porque hoy también merecías saber lo hermosa que eres\"."
+    },
+    {
+        id: 24,
+        titulo: "Escribirte una carta",
+        texto: "Quería llenar hojas con todo lo que a veces no se puede decir en un chat. Que guardaras esa carta entre tus cosas y que algún día, al volver a leerla, supieras cuánto significabas para mí."
+    },
+    {
+        id: 25,
+        titulo: "Conocer tu lugar favorito",
+        texto: "Soñaba con conocer ese rincón que tanto te gustaba. No por el lugar, sino porque todo aquello que te hacía feliz también me habría gustado conocerlo."
+    },
+    {
+        id: 26,
+        titulo: "Mirar el cielo desde un parque",
+        texto: "Sentarnos sobre el pasto, hablar de cualquier cosa y terminar mirando las nubes. Tal vez el parque fuera sencillo, pero contigo habría parecido el lugar más bonito del mundo."
+    },
+    {
+        id: 27,
+        titulo: "Celebrar tu cumpleaños",
+        texto: "Quería ser de los primeros en abrazarte y agradecerle a Dios por tu vida. Verte soplar las velas habría sido suficiente regalo para mí."
+    },
+    {
+        id: 28,
+        titulo: "Pasar Navidad contigo",
+        texto: "Imaginaba luces, música y una foto abrazados frente al árbol. No necesitaba regalos; tú ya eras el mejor."
+    },
+    {
+        id: 29,
+        titulo: "Recibir el Año Nuevo abrazados",
+        texto: "Cuando el reloj marcara las doce, solo habría querido tenerte entre mis brazos y empezar un nuevo año con la persona que más quería."
+    },
+    {
+        id: 30,
+        titulo: "Viajar en carretera",
+        texto: "No importaba el destino. Con música, conversaciones y tu compañía, cualquier camino habría valido la pena."
+    },
+    {
+        id: 31,
+        titulo: "Prepararte una sorpresa",
+        texto: "Me habría gustado planear cada detalle solo para ver esa expresión de sorpresa en tu rostro. Tu sonrisa siempre fue el premio que imaginaba."
+    },
+    {
+        id: 32,
+        titulo: "Acompañarte cuando estuvieras enferma",
+        texto: "Quería prepararte un té, decirte que descansaras y quedarme contigo hasta que te sintieras mejor. Cuidarte siempre fue uno de mis sueños."
+    },
+    {
+        id: 33,
+        titulo: "Escuchar tus sueños",
+        texto: "Hablar durante horas sobre todo lo que querías lograr. Me habría encantado ser quien te recordara que eras capaz de conseguirlo."
+    },
+    {
+        id: 34,
+        titulo: "Verte usar mi polera",
+        texto: "Siempre pensé que te verías aún más bonita usando una de mis poleras. Seguramente terminaría regalándotela solo porque te quedaba mejor a ti."
+    },
+    {
+        id: 35,
+        titulo: "Compartir un postre",
+        texto: "Pedir uno para los dos y discutir de broma quién se comía el último bocado. Esas pequeñas tonterías también eran parte de los sueños que tenía contigo."
+    },
+    {
+        id: 36,
+        titulo: "Pasear por una feria",
+        texto: "Quería caminar entre puestos, probar comida, ganar algún peluche imposible y terminar riéndonos de todo lo que pasara ese día."
+    },
+    {
+        id: 37,
+        titulo: "Mirarte mientras leías",
+        texto: "Hubiera fingido leer solo para observar la paz que transmitías cuando estabas concentrada. Hay momentos silenciosos que dicen mucho."
+    },
+    {
+        id: 38,
+        titulo: "Construir nuestro hogar",
+        texto: "Como estudiante de arquitectura imaginaba diseñar un lugar donde cada espacio hablara de nosotros. No una casa perfecta, sino un hogar lleno de paz."
+    },
+    {
+        id: 39,
+        titulo: "Envejecer contigo",
+        texto: "Siempre pensé que el amor bonito no era el de un día, sino el de toda una vida. Soñaba con llegar a viejitos recordando cada aventura que vivimos juntos."
+    },
+    {
+        id: 40,
+        titulo: "Decirte cada día que eres hermosa",
+        texto: "Nunca quería que dudaras de lo mucho que admiraba tu sonrisa, tus ojos color miel y la persona que eres. Mi idea era recordártelo todos los días."
+    },
+    {
+        id: 41,
+        titulo: "Mirar el amanecer desde un cerro",
+        texto: "Siempre imaginé subir temprano a un cerro contigo para recibir el primer rayo de sol. Mientras todos miraban el horizonte, yo habría descubierto que mi amanecer favorito estaba a mi lado."
+    },
+    {
+        id: 42,
+        titulo: "Ir a un concierto contigo",
+        texto: "Quería tomar tu mano mientras sonaba esa canción que tanto nos gustara. No importaba el artista; lo importante era que cada letra nos encontrara sonriendo."
+    },
+    {
+        id: 43,
+        titulo: "Viajar en tren",
+        texto: "Imaginaba un viaje largo en tren, mirando por la ventana mientras inventábamos historias sobre los lugares que pasaban frente a nosotros."
+    },
+    {
+        id: 44,
+        titulo: "Pintar un cuadro juntos",
+        texto: "Compraría pinturas aunque ninguno supiera usarlas. Al final el cuadro no sería perfecto, pero sí un recuerdo hecho por los dos."
+    },
+    {
+        id: 45,
+        titulo: "Armar un rompecabezas",
+        texto: "Me habría encantado pasar una tarde armando un rompecabezas contigo, solo para descubrir que trabajar juntos también podía ser divertido."
+    },
+    {
+        id: 46,
+        titulo: "Visitar un museo",
+        texto: "Quería caminar contigo por un museo, escuchando tus opiniones y descubriendo que tú llamabas mi atención mucho más que cualquier obra."
+    },
+    {
+        id: 47,
+        titulo: "Perdernos en una ciudad nueva",
+        texto: "Perdernos por calles desconocidas habría sido una aventura. Porque contigo hasta perderse parecía encontrar el camino correcto."
+    },
+    {
+        id: 48,
+        titulo: "Comer canchita en el cine",
+        texto: "En el cine habría terminado compartiendo más la canchita contigo que mirando la pantalla. Tus risas habrían sido mi escena favorita."
+    },
+    {
+        id: 49,
+        titulo: "Ver fuegos artificiales",
+        texto: "Ver los fuegos artificiales reflejados en tus ojos color miel habría sido suficiente para recordar esa noche toda la vida."
+    },
+    {
+        id: 50,
+        titulo: "Escribir nuestro diario",
+        texto: "Quería escribir un diario donde cada página contara un pequeño momento contigo, para releerlo cuando fuéramos viejitos."
+    },
+    {
+        id: 51,
+        titulo: "Aprender a bailar contigo",
+        texto: "No importa si pisábamos mal. Lo bonito era aprender a bailar riéndonos de nuestros errores."
+    },
+    {
+        id: 52,
+        titulo: "Ir al zoológico",
+        texto: "Me imaginaba viendo a los animales contigo y sonriendo al descubrir que seguías emocionándote como una niña con las cosas simples."
+    },
+    {
+        id: 53,
+        titulo: "Compartir audífonos en el bus",
+        texto: "Compartir un audífono en el bus y dejar que una canción dijera lo que a veces cuesta expresar con palabras."
+    },
+    {
+        id: 54,
+        titulo: "Mirar fotos antiguas",
+        texto: "Sentarnos a mirar fotografías antiguas e imaginar todas las nuevas que todavía nos faltaban por tomar."
+    },
+    {
+        id: 55,
+        titulo: "Hacer una videollamada hasta dormir",
+        texto: "Quería quedarme en videollamada hasta que alguno se quedara dormido, sintiendo que la distancia era un poco más pequeña."
+    },
+    {
+        id: 56,
+        titulo: "Plantar un árbol juntos",
+        texto: "Plantar un árbol contigo era una forma de creer que algunas cosas bonitas también crecen con paciencia."
+    },
+    {
+        id: 57,
+        titulo: "Correr hacia ti para abrazarte",
+        texto: "Siempre soñé con correr hacia ti el día de nuestro encuentro y abrazarte tan fuerte que todas las esperas dejaran de doler."
+    },
+    {
+        id: 58,
+        titulo: "Llevarte a probar mi comida favorita",
+        texto: "Llevarte a comer ese lugar que tanto me gustaba y esperar con nervios tu reacción al primer bocado."
+    },
+    {
+        id: 59,
+        titulo: "Sentarnos en un muelle",
+        texto: "Sentarnos al borde de un muelle, escuchar el agua y hablar de todo lo que queríamos construir en el futuro."
+    },
+    {
+        id: 60,
+        titulo: "Mirarte en silencio",
+        texto: "Muchas veces imaginé quedarme callado solo para contemplarte. Hay personas cuya presencia llena cualquier silencio."
+    },
+    {
+        id: 61,
+        titulo: "Ver un partido contigo",
+        texto: "Imaginaba explicarte las reglas aunque terminaras riéndote de lo mucho que me emocionaba. Al final lo importante nunca fue el partido, sino compartir ese momento contigo."
+    },
+    {
+        id: 62,
+        titulo: "Enseñarte a jugar mi videojuego favorito",
+        texto: "Quería verte descubrir ese mundo que tanto me divertía. Seguro perderías algunas partidas, pero yo habría celebrado cada sonrisa tuya como una victoria."
+    },
+    {
+        id: 63,
+        titulo: "Hacer un álbum de recuerdos",
+        texto: "Soñaba con llenar un álbum de boletos, fotos y pequeños recuerdos. No por coleccionar cosas, sino por guardar pedacitos de nuestra historia."
+    },
+    {
+        id: 64,
+        titulo: "Comprar un peluche para ti",
+        texto: "Me habría gustado ganarte un peluche aunque fallara mil veces. Solo quería verte abrazándolo y pensar que te recordaría un poquito a mí."
+    },
+    {
+        id: 65,
+        titulo: "Subir a una rueda de la fortuna",
+        texto: "Subir contigo a una rueda de la fortuna y, cuando llegáramos arriba, quedarnos un instante mirando la ciudad mientras te daba las gracias por existir."
+    },
+    {
+        id: 66,
+        titulo: "Ir a un mirador de noche",
+        texto: "Buscar un mirador, sentarnos juntos y ver las luces de la ciudad. Creo que habría descubierto que ninguna brillaba tanto como tus ojos color miel."
+    },
+    {
+        id: 67,
+        titulo: "Escuchar el sonido del mar en silencio",
+        texto: "Hay silencios que no incomodan. Imaginaba escuchar el mar contigo sin decir nada, porque tu compañía ya lo decía todo."
+    },
+    {
+        id: 68,
+        titulo: "Probar un restaurante nuevo",
+        texto: "Quería sorprenderte llevándote a un lugar nuevo y preguntarte cuál era tu plato favorito. Después prometer volver si te hacía feliz."
+    },
+    {
+        id: 69,
+        titulo: "Ver cómo eliges un libro",
+        texto: "Entrar a una librería y observar cómo tus ojos se iluminaban al encontrar un libro especial. Esa ilusión tuya también habría sido mía."
+    },
+    {
+        id: 70,
+        titulo: "Escribir tu nombre en mi libreta",
+        texto: "Más de una vez imaginé escribir tu nombre entre mis apuntes de arquitectura, solo porque aparecía en cada uno de mis pensamientos."
+    },
+    {
+        id: 71,
+        titulo: "Ir a una feria del libro",
+        texto: "Caminar entre libros contigo habría sido descubrir historias en los estantes y otra aún más bonita caminando a mi lado."
+    },
+    {
+        id: 72,
+        titulo: "Compartir un paraguas",
+        texto: "Si empezaba a llover, habría acercado el paraguas un poco más hacia ti aunque yo terminara empapado. Hay gustos que uno tiene cuando ama."
+    },
+    {
+        id: 73,
+        titulo: "Tomarnos una foto espontánea",
+        texto: "No las fotos preparadas, sino esas donde ambos nos reíamos sin darnos cuenta de que alguien había capturado el momento."
+    },
+    {
+        id: 74,
+        titulo: "Esperar el bus abrazados",
+        texto: "Esperar el bus contigo habría hecho que cualquier demora pareciera corta. Las mejores conversaciones nacen cuando no hay prisa."
+    },
+    {
+        id: 75,
+        titulo: "Recorrer un mercado juntos",
+        texto: "Recorrer un mercado probando frutas, riéndonos de los vendedores y aprendiendo tus gustos era una felicidad sencilla que soñaba vivir."
+    },
+    {
+        id: 76,
+        titulo: "Comprar ingredientes para cocinar",
+        texto: "Elegir ingredientes contigo y discutir de broma quién cocinaba mejor. Sabía que el recuerdo sería más rico que la comida."
+    },
+    {
+        id: 77,
+        titulo: "Ver cómo te quedas dormida",
+        texto: "Imaginaba verte quedarte dormida durante un viaje y sonreír en silencio para no despertarte. Algunos instantes son demasiado tiernos para olvidarlos."
+    },
+    {
+        id: 78,
+        titulo: "Hacer una lista de sueños",
+        texto: "Quería escribir una lista de lugares por conocer, comidas por probar y sueños por cumplir contigo, tachándolos uno por uno con el paso de los años."
+    },
+    {
+        id: 79,
+        titulo: "Brindar por nuestro futuro",
+        texto: "Levantar una copa por todo lo bueno que vendría. No por lo que teníamos, sino por lo que aún soñábamos construir juntos."
+    },
+    {
+        id: 80,
+        titulo: "Decirte 'qué bonito que existes'",
+        texto: "Si hubiera podido decirte algo cada mañana, habría sido esto: qué bonito que existes, Andira. Gracias por inspirar tantos sueños."
+    },
+    {
+        id: 81,
+        titulo: "Esperarte en el aeropuerto",
+        texto: "Durante muchas noches imaginé ese día. Miraría cada persona que saliera por la puerta hasta encontrarte. Cuando por fin aparecieras, el tiempo dejaría de importar. No pensaba en un discurso perfecto; solo en un abrazo largo, de esos que curan kilómetros, silencios y esperas."
+    },
+    {
+        id: 82,
+        titulo: "Un domingo contigo",
+        texto: "Siempre soñé con un domingo sencillo. Despertar tarde, preparar el desayuno juntos, reír porque el pan se quemó un poco, compartir un café mientras entraba la luz por la ventana."
+    },
+    {
+        id: 83,
+        titulo: "Construir nuestro hogar",
+        texto: "Mientras aprendía arquitectura, imaginaba diseñar un hogar pensando en nosotros. Una ventana para ver el amanecer, un rincón para leer, una cocina donde cocinar juntos aunque nos equivocáramos."
+    },
+    {
+        id: 84,
+        titulo: "Llevarte al mar",
+        texto: "Quería llevarte al mar cuando el sol empezara a esconderse. Caminar descalzos, dejar que las olas tocaran nuestros pies y escuchar el sonido del agua mientras el cielo cambiaba de color."
+    },
+    {
+        id: 85,
+        titulo: "Una librería",
+        texto: "Imaginaba entrar contigo a una librería. Tú buscando un libro, yo observando cómo se iluminaban tus ojos. Me habría gustado regalarte el primero que llamara tu atención."
+    },
+    {
+        id: 86,
+        titulo: "Verte cumplir tus sueños",
+        texto: "No quería ser el protagonista de tu historia. Quería ser quien aplaudiera cada uno de tus logros. Estar presente cuando sintieras miedo y celebrar contigo cada meta alcanzada."
+    },
+    {
+        id: 87,
+        titulo: "Viaje sin destino",
+        texto: "Me imaginaba subiendo a un bus contigo sin preocuparnos demasiado por el destino. La aventura estaría en las conversaciones y en las risas."
+    },
+    {
+        id: 88,
+        titulo: "Una noche de estrellas",
+        texto: "Quería buscar un lugar donde la ciudad no hiciera ruido. Acostarnos sobre el pasto, mirar las estrellas e inventar nombres para las constelaciones."
+    },
+    {
+        id: 89,
+        titulo: "Envejecer contigo",
+        texto: "Siempre pensé que el amor más bonito no era el que impresionaba a todos, sino el que resistía el paso del tiempo. Imaginaba ver aparecer algunas canas y seguir tomándonos de la mano."
+    },
+    {
+        id: 90,
+        titulo: "Qué bonito habría sido",
+        texto: "A veces cierro los ojos e imagino todas las cosas sencillas que habría querido vivir contigo: un desayuno, un abrazo, una caminata, una película, un café en una tarde fría."
+    },
+    {
+        id: 91,
+        titulo: "Verte elegir un vestido",
+        texto: "Siempre imaginé acompañarte mientras buscabas un vestido. Probablemente dirías que todos eran iguales, pero yo encontraría una razón para decirte que te veías hermosa con cada uno."
+    },
+    {
+        id: 92,
+        titulo: "Nuestro primer baile",
+        texto: "No sé bailar bien, y creo que tú lo sabías. Aun así soñaba con invitarte a bailar. Seguramente pisaría tus pies y terminaríamos riéndonos."
+    },
+    {
+        id: 93,
+        titulo: "Mirar el amanecer desde la playa",
+        texto: "Quería llegar antes de que saliera el sol, sentarnos sobre la arena y esperar en silencio. Ningún amanecer se compara con la paz que encontraba imaginándote a mi lado."
+    },
+    {
+        id: 94,
+        titulo: "Viajar a un lugar desconocido",
+        texto: "Soñaba con descubrir una ciudad nueva contigo, equivocarnos de calle y terminar riéndonos de cada error."
+    },
+    {
+        id: 95,
+        titulo: "Escribir un libro para ti",
+        texto: "Muchas veces pensé en llenar un cuaderno con poemas e historias inspiradas en ti."
+    },
+    {
+        id: 96,
+        titulo: "Verte reír hasta llorar",
+        texto: "Siempre quise hacer alguna tontería que terminara haciéndote reír sin parar."
+    },
+    {
+        id: 97,
+        titulo: "Caminar toda una noche",
+        texto: "Imaginaba una noche tranquila, caminar y hablar de nuestros miedos y sueños."
+    },
+    {
+        id: 98,
+        titulo: "Una fotografía al envejecer",
+        texto: "Pensaba en una fotografía tomada muchos años después, con algunas canas pero con la misma sonrisa."
+    },
+    {
+        id: 99,
+        titulo: "Dar gracias por encontrarte",
+        texto: "Cada vez que imaginaba el futuro, también imaginaba un momento para agradecer a Dios por coincidir contigo."
+    },
+    {
+        id: 100,
+        titulo: "El sueño que siempre guardaré",
+        texto: "Si algún día me preguntaran cuál fue el sueño más bonito que tuve, hablaría de una vida sencilla contigo. Ese sueño siempre llevará tu nombre, Andira."
+    }
+];
+
+        // Lógica: mostrar poemas en orden aleatorio sin repeticiones durante la sesión.
+        const letterDate = document.getElementById('letter-date');
+        const letterTitle = document.getElementById('letter-title');
+        const letterText = document.getElementById('letter-text');
+        const nextLetterButton = document.getElementById('next-letter');
+        const letterCard = document.querySelector('.letter-card');
+        const actions = document.querySelector('.actions');
+
+        let remainingIndices = [];
+        let shownCount = 0;
+
+        function initPool() {
+            remainingIndices = poemas.map((_, i) => i);
+            shownCount = 0;
+        }
+
+        function showPoemByIndex(arrayIndex, sequenceNumber) {
+            const poema = poemas[arrayIndex];
+            letterCard.classList.remove('is-visible');
+            // Mostrar el ID real del poema (no el orden de lectura)
+            letterDate.textContent = `CARTA ${poema.id}`;
+            letterTitle.textContent = poema.titulo;
+            letterText.textContent = poema.texto;
+            requestAnimationFrame(() => {
+                letterCard.classList.add('is-visible');
+            });
+        }
+
+        function showFinalMessage() {
+            letterCard.classList.remove('is-visible');
+            letterDate.textContent = '';
+            letterTitle.textContent = 'Has llegado al final...';
+            letterText.textContent = `Leíste todas las cartas que tenía para ti.\nGracias por dedicarme tu tiempo.\n\nSupongo que ahora me toca escribir más.\n\nQuizá algún día vuelvas y encuentres nuevas páginas esperando por ti. ❤️`;
+            // ocultar botón siguiente y añadir botón de reinicio
+            nextLetterButton.style.display = 'none';
+            let restartBtn = document.getElementById('restart-button');
+            if (!restartBtn) {
+                restartBtn = document.createElement('button');
+                restartBtn.id = 'restart-button';
+                restartBtn.type = 'button';
+                restartBtn.className = 'btn';
+                restartBtn.textContent = 'Volver a empezar';
+                actions.appendChild(restartBtn);
+                restartBtn.addEventListener('click', () => {
+                    // reiniciar recorrido y mostrar nuevo poema aleatorio
+                    restartBtn.remove();
+                    nextLetterButton.style.display = '';
+                    initPool();
+                    showNextRandom();
+                });
+            }
+            requestAnimationFrame(() => {
+                letterCard.classList.add('is-visible');
+            });
+        }
+
+        function showNextRandom() {
+            if (remainingIndices.length === 0) {
+                showFinalMessage();
+                return;
+            }
+
+            const r = Math.floor(Math.random() * remainingIndices.length);
+            const arrayIndex = remainingIndices.splice(r, 1)[0];
+            shownCount += 1;
+            showPoemByIndex(arrayIndex, shownCount);
+        }
+
+        nextLetterButton.addEventListener('click', () => {
+            showNextRandom();
+        });
+
+        // inicializar y mostrar la primera carta aleatoria
+        initPool();
+        showNextRandom();
+    </script>
+</body>
+</html>
